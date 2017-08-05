@@ -11,12 +11,12 @@ lines moving at random speeds
 base everything off a single seed value -- to allow reproduction
 random number of trees
 Tree has starting position and speed
-position is derived from speed and time -- allows time to move
+position is derived from speed and time -- allows time to move in any direction
 make all the tree state 0..1
 
 ## Slice 2
-Random speeds used to determine saturation/layer index (overlap should work
-distance/layer is derived from speed
+Random speeds used to determine saturation/layer index (overlap should work)
+can probably just order by speed and draw in correct order.
 
 ## Slice 3
 add some different thicknesses

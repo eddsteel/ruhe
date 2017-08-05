@@ -1,44 +1,46 @@
 package com.eddsteel.ruhe
 
-import cats._, cats.implicits._
+import Types._
+
+import cats._
+import scala.scalajs.js.timers
 import org.scalajs.dom
 import org.scalajs.dom.document
 
 import collection.immutable.Seq
 
 object Main {
-
-  def appendPar(targetNode: dom.Node, text: String): dom.Node = {
-    val parNode = document.createElement("p")
-    val textNode = document.createTextNode(text)
-    val _ = parNode.appendChild(textNode)
-    targetNode.appendChild(parNode)
-  }
-
-  def ul[A: Show](targetNode: dom.Node, as: Seq[A]): dom.Node = {
-    val ulNode = document.createElement("ul")
-    as.foreach { a =>
-      val li = document.createElement("li")
-      val _ = li.appendChild(document.createTextNode(a.show))
-      ulNode.appendChild(li)
-    }
-
-    targetNode.appendChild(ulNode)
-  }
-
   private val forest = Seed(System.currentTimeMillis).germinate
 
-  @SuppressWarnings(
-    Array("org.wartremover.warts.AsInstanceOf",
-          "org.wartremover.warts.Println"))
   def main(args: Array[String]): Unit = {
-    val _ = appendPar(document.body, "😸")
     val canvas =
       document.getElementById("ruhe-canvas").asInstanceOf[dom.html.Canvas]
 
-    forest.foreach { tree =>
-      CanvasOps.drawVerticalLine(tree.initialPosition)(canvas)
+    val fs: (Any => Any) = _ => {
+      canvas.width = dom.window.innerWidth.toInt
+      canvas.height = dom.window.innerHeight.toInt
+    }
+    fs(())
+
+    dom.window.addEventListener("resize", fs, false)
+
+    var tick = 0l
+
+    val _ = timers.setInterval(16) {
+      drawScene(canvas, forest, tick)
+      tick = tick + 1
     }
 
+    ()
+  }
+
+  def drawScene(canvas: dom.html.Canvas, forest: Seq[Tree], tick: Long): Unit = {
+    // vary t based on tick to simulate walking pace
+    val pace: Double = 0.0005 * Math.sin(0.1 * tick.toDouble) + 0.02
+    val scene = Monoid.combineAll(forest.map { tree =>
+      CanvasOps.draw(tree.at(tick + pace))
+    })(DrawOp.monoid)
+
+    CanvasOps.drawFrame(canvas, scene)
   }
 }
