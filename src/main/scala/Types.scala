@@ -25,4 +25,15 @@ object Types {
       }
     }
   }
+
+  final case class HSL(hue: Int, saturation: UnitD, lightness: UnitD) {
+    override def toString: String = {
+      def pc(d: UnitD): String = s"${(d * 100).toInt}%"
+      s"hsl($hue, ${pc(saturation)}, ${pc(lightness)})"
+    }
+  }
+
+  object HSL {
+    val Black: HSL = HSL(0, 0.0, 0.0)
+  }
 }
