@@ -19,9 +19,12 @@ Random speeds used to determine saturation/layer index (overlap should work)
 can probably just order by speed and draw in correct order.
 Trees with variable thickness
 
-## Slice 3
+## ~~Slice 3~~
 Deployable in a docker container (i.e. a server side component that serves html/js)
 Built in travis.
+Add downloadable systemd service to help manual deploy.
+Make `sbt run` just run the server
+
 
 ## Slice 4
 

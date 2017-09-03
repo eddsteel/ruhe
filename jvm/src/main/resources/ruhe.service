@@ -1,0 +1,18 @@
+# Download, and copy to /lib/systemd/system
+#
+
+[Unit]
+Description=Ruhe service
+Requires=docker.service
+After=docker.service
+
+[Service]
+ExecStartPre=-/usr/bin/docker kill ruhe
+ExecStartPre=-/usr/bin/docker rm ruhe
+ExecStartPre=-/usr/bin/docker pull eddsteel/ruhe:latest
+Restart=always
+ExecStart=/usr/bin/docker run -i --name ruhe -p 8081:8081 eddsteel/ruhe:latest
+ExecStop=/usr/bin/docker stop -t 5 ruhe
+
+[Install]
+WantedBy=local.target

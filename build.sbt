@@ -51,4 +51,4 @@ val jvm: Project = ruhe.jvm
   .enablePlugins(JavaAppPackaging)
 
 val root: Project = project.in(file(".")).aggregate(js, jvm).settings(publish := {},
-    publishLocal := {})
+  publishLocal := {}, run := (run in (jvm, Compile)).evaluated)

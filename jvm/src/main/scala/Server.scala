@@ -21,7 +21,8 @@ object Server extends StreamApp {
       logger.info("GET /")
       static("index.html", request)
 
-    case request @ GET -> Root / path if List(".js", ".map", ".html").exists(path.endsWith) =>
+    case request @ GET -> Root / path
+        if List(".js", ".map", ".html", ".service").exists(path.endsWith) =>
       logger.info(s"GET /$path")
       static(path, request)
   }
