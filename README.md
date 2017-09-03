@@ -21,7 +21,7 @@ Trees with variable thickness
 
 ## Slice 3
 Deployable in a docker container (i.e. a server side component that serves html/js)
-Built in travis
+Built in travis.
 
 ## Slice 4
 
