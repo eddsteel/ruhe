@@ -26,6 +26,6 @@ object Server extends StreamApp {
       static(path, request)
   }
 
-  def stream(args: List[String]): Streamp[Task, Nothing] =
+  def stream(args: List[String]): Stream[Task, Nothing] =
     BlazeBuilder.bindHttp(8081, "0.0.0.0").mountService(service, "/").serve
 }

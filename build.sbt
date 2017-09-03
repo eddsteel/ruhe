@@ -16,7 +16,9 @@ val ruhe: CrossProject = crossProject
   .settings(
     libraryDependencies += "org.typelevel" %%% "cats" % "0.9.0",
     Lint.settings,
-    Flags.settings
+    Flags.settings,
+    publish := {},
+    publishLocal := {}
   )
 
 val js: Project = ruhe.js
@@ -48,4 +50,5 @@ val jvm: Project = ruhe.jvm
   )
   .enablePlugins(JavaAppPackaging)
 
-val root: Project = project.in(file(".")).aggregate(js, jvm)
+val root: Project = project.in(file(".")).aggregate(js, jvm).settings(publish := {},
+    publishLocal := {})
