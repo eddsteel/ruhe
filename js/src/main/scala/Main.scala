@@ -53,15 +53,17 @@ object Main {
     val f = flicker(tick)
     val p = pace(tick)
     val t = tick + p
+    val (skyc, skyp) = config.bg1
+    val sky = (skyc.copy(lightness = skyc.lightness + f), skyp)
 
     val scene =
       DrawOp.monoid.combine(
-        CanvasOps.fillAllGradient(HSL(100, 0.1, 0.1), HSL(100, 0.05, 0.2 + f)),
+        Canvas.fillAllGradient(config.bg0, sky, config.bg2, config.bg3),
         Monoid.combineAll(forest.map { tree =>
-          CanvasOps.draw(tree.at(t))
+          Canvas.draw(tree.at(t))
         })(DrawOp.monoid)
       )
 
-    CanvasOps.drawFrame(canvas, scene)
+    Canvas.drawFrame(canvas, scene)
   }
 }

@@ -5,7 +5,7 @@ import org.scalajs.dom.html.Canvas
 
 import Types._
 
-object CanvasOps {
+object Canvas {
 
   // lazy hack: rather than drawing partial trees, we make the canvas
   // wider than the screen, so whole trees don't visibly blip into full existence
@@ -23,11 +23,17 @@ object CanvasOps {
       ctx.fillRect(0, 0, canvas.width.toDouble, canvas.height.toDouble)
     })
 
-  def fillAllGradient(color1: HSL, color2: HSL): DrawOp =
+  def fillAllGradient(
+    color0: (HSL, UnitD),
+    color1: (HSL, UnitD),
+    color2: (HSL, UnitD),
+    color3: (HSL, UnitD)): DrawOp =
     (canvas, ctx) => {
       val gradient = ctx.createLinearGradient(0, 0, 0, canvas.height.toDouble)
-      gradient.addColorStop(0, color1.toString)
-      gradient.addColorStop(1, color2.toString)
+      gradient.addColorStop(color0._2, color0._1.toString)
+      gradient.addColorStop(color1._2, color1._1.toString)
+      gradient.addColorStop(color2._2, color2._1.toString)
+      gradient.addColorStop(color3._2, color3._1.toString)
       val previous = ctx.fillStyle
       ctx.fillStyle = gradient
       ctx.fillRect(0, 0, canvas.width.toDouble, canvas.height.toDouble)
@@ -43,8 +49,19 @@ object CanvasOps {
         canvas.height.toDouble)
     })
 
-  def drawText(text: String): DrawOp = (canvas, ctx) => {
-    ctx.fillText(text, canvas.width * 0.8, canvas.height * 0.9)
+  def drawRotatedVerticalRect(xPos: UnitD, width: UnitD, color: HSL, degrees: UnitD): DrawOp =
+    withFillStyle(color)((canvas, ctx) => {
+      ctx.rotate(degrees)
+      ctx.fillRect(
+        Math.max(0, xPos - width) * canvas.width * stretch,
+        -100,
+        width * canvas.width * stretch,
+        canvas.height.toDouble + 200)
+      ctx.rotate(-degrees)
+    })
+
+  def drawText(text: String, x: Double, y: Double): DrawOp = (canvas, ctx) => {
+    ctx.fillText(text, (1.0 - x) * canvas.width, y * canvas.height + x * 500)
   }
 
   def draw[T: Drawable](drawable: T): DrawOp =

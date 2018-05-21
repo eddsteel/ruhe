@@ -26,6 +26,6 @@ Add downloadable systemd service to help manual deploy.
 Make `sbt run` just run the server
 
 
-## Slice 4
+## ~~Slice 4~~
 
-Expose config parameters in a UI
+Better colours, tip angle, more happening in the background.

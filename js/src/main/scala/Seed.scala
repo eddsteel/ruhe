@@ -19,11 +19,35 @@ final case class Seed(seed: Long) {
     1.to(config.forestSize / 5)
       .flatMap { i =>
         Seq(
-          Tree(unitD, far(config.distance(unitD)), config.width(unitD), color(config), config),
-          Tree(unitD, far(config.distance(unitD)), config.width(unitD), color(config), config),
-          Tree(unitD, medium(config.distance(unitD)), config.width(unitD), color(config), config),
-          Tree(unitD, medium(config.distance(unitD)), config.width(unitD), color(config), config),
-          Tree(unitD, config.distance(unitD), config.width(unitD), color(config), config)
+          Tree(
+            unitD,
+            far(config.distance(unitD)),
+            config.width(unitD),
+            unitD,
+            color(config),
+            config),
+          Tree(
+            unitD,
+            far(config.distance(unitD)),
+            config.width(unitD),
+            unitD,
+            color(config),
+            config),
+          Tree(
+            unitD,
+            medium(config.distance(unitD)),
+            config.width(unitD),
+            unitD,
+            color(config),
+            config),
+          Tree(
+            unitD,
+            medium(config.distance(unitD)),
+            config.width(unitD),
+            unitD,
+            color(config),
+            config),
+          Tree(unitD, config.distance(unitD), config.width(unitD), unitD, color(config), config)
         )
       }
       .sortBy(_.speed)
