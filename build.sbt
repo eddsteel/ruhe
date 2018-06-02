@@ -4,7 +4,7 @@ import org.scalajs.sbtplugin.cross.CrossProject
 
 scalaVersion in ThisBuild := "2.12.3"
 organization in ThisBuild := "com.eddsteel"
-version in ThisBuild := "slice3"
+version in ThisBuild := "slice5-dev"
 
 // thanks https://gitlab.com/bullbytes/scala-js-example/blob/master/build.sbt
 def jsOp =

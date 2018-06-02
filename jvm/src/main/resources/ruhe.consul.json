@@ -1,0 +1,17 @@
+{
+  "service": {
+    "name": "ruhe",
+    "tags": [],
+    "port": 8081,
+    "checks": [
+      {
+        "id": "ruhe-ruok",
+        "name": "Ruhe is up",
+        "http": "http://localhost:8081/ruok",
+        "method": "GET",
+        "interval": "300s",
+        "timeout": "50ms"
+      }
+    ]
+  }
+}

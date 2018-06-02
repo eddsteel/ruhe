@@ -1,6 +1,5 @@
 # Download, and copy to /lib/systemd/system
 #
-
 [Unit]
 Description=Ruhe service
 Requires=docker.service
