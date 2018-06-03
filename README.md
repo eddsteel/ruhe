@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/eddsteel/ruhe.svg?branch=master)](https://travis-ci.org/eddsteel/ruhe)
 
+[Deployment](http://ruhe.eddsteel.com)
 
 ## ~~Slice 0~~
 scala.js + canvas + randomly spaced lines
